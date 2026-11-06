@@ -13,12 +13,12 @@ function Notes() {
         title: 'Prepare for the quiz',
         body: 'Practice writing one handler for many inputs.',
     },
-])
+    ])
 
-const [form, setForm] = useState({
-    title: '',
-    body: '',
-})
+    const [form, setForm] = useState({
+        title: '',
+        body: '',
+    })
 
 function handleChange(event) {
     setForm({
@@ -47,6 +47,10 @@ function handleSubmit(event) {
         title: '',
         body: '',
     })
+}
+
+function handleDelete(id) {
+    setNotes(notes.filter((todo) => todo.id !== id))
 }
 
   return (
@@ -103,6 +107,7 @@ function handleSubmit(event) {
                             />
                             <button
                             type="button"
+                            onClick={()=> handleDelete(note.id)}
                             className="absolute top-4 right-5 cursor-pointer text-[26px] leading-none text-[#949494] hover:text-[#c18585]"
                             >
                                 ×
