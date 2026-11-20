@@ -1,5 +1,5 @@
 import NoteCard from './NoteCard.jsx'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useMemo } from 'react'
 
 const startingNotes = [
   {
@@ -45,9 +45,11 @@ function handleChange(event) {
     })
 }
 
-const visibleNotes = notes.filter((note) =>
-    note.title.toLowerCase().includes(search.toLowerCase())
-)
+const visibleNotes = useMemo(() => {
+    return notes.filter((note) =>
+        note.title.toLowerCase().includes(search.toLowerCase())
+    )
+}, [notes, search])
 
 function handleSubmit(event) {
     event.preventDefault()
