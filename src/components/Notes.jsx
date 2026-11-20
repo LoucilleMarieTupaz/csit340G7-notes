@@ -1,5 +1,5 @@
 import NoteCard from './NoteCard.jsx'
-import { useEffect, useState, useRef, useMemo } from 'react'
+import { useEffect, useState, useRef, useMemo, useCallback } from 'react'
 
 const startingNotes = [
   {
@@ -74,9 +74,9 @@ function handleSubmit(event) {
     titleRef.current.focus()
 }
 
-function handleDelete(id) {
+const  handleDelete = useCallback((id) => {
     setNotes(notes.filter((todo) => todo.id !== id))
-}
+}, [notes])
 
   return (
     <div className="grid min-h-screen grid-cols-[420px_1fr]">
@@ -130,16 +130,11 @@ function handleDelete(id) {
                         key={note.id}
                         className="relative min-h-32 bg-white px-6 py-5 shadow-[0_2px_4px_0_rgba(0,0,0,0.2),0_25px_50px_0_rgba(0,0,0,0.1)]">
                             <NoteCard
+                                id={note.id}
                                 title={note.title}
                                 body={note.body}
+                                onDelete={handleDelete}
                             />
-                            <button
-                            type="button"
-                            onClick={()=> handleDelete(note.id)}
-                            className="absolute top-4 right-5 cursor-pointer text-[26px] leading-none text-[#949494] hover:text-[#c18585]"
-                            >
-                                ×
-                            </button>
                     </li>
                 ))}    
             </ul>
